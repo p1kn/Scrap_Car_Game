@@ -1,8 +1,15 @@
 import java.util.Scanner;
 
 public class Menu {
+    Generate generate = new Generate();
 
-    public static void printGameLogo() {
+
+
+
+
+    public void startGame() {
+        generate.createCarBase();
+        generate.createCustomerBase();
         System.out.println("+------------------------------------------------+---------------------------------------------------------+");
         System.out.println("+----------  W E L C O M E   T O  ---------------+           ______--~~~~~~~~~~~~~~~~~~--______            |");
         System.out.println("+------------------------------------------------+      ___ // _-~                        ~-_ \\\\ ___       |");
@@ -21,7 +28,7 @@ public class Menu {
         System.out.println("+------------------------------------------------+---------------------------------------------------------+");
     }
 
-    public static void buyAdMenu() {
+    public void buyAdMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=====================================================================");
         System.out.println("Wybierz opcję: ");
@@ -31,24 +38,21 @@ public class Menu {
         System.out.println("=====================================================================");
         Integer option = scanner.nextInt();
         switch (option) {
-            case 0:
+            case 0 -> {
                 System.out.println("Powrót do menu głównego");
                 initialMenu();
-                break;
-            case 1:
-                System.out.println("Odwołanie do metody w której po opłacie przybywa losowa ilość potencjalnych kupujących");
-                break;
-            case 2:
-                System.out.println("Odwołanie do metody w której po opłacie przybywa JEDEN potencjalny kupujący");
-                break;
-            default:
+            }
+            case 1 ->
+                    System.out.println("Odwołanie do metody w której po opłacie przybywa losowa ilość potencjalnych kupujących");
+            case 2 -> System.out.println("Odwołanie do metody w której po opłacie przybywa JEDEN potencjalny kupujący");
+            default -> {
                 System.out.println("Błąd: podaj liczbę z zakresu: 0 - 2");
                 carsToSoldMenu();
-                break;
+            }
         }
     }
 
-    public static void carsToSoldMenu() {
+    public void carsToSoldMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=====================================================================");
         System.out.println("Wybierz opcję: ");
@@ -60,31 +64,27 @@ public class Menu {
         System.out.println("=====================================================================");
         Integer option = scanner.nextInt();
         switch (option) {
-            case 0:
+            case 0 -> {
                 System.out.println("Powrót do menu głównego");
                 initialMenu();
-                break;
-            case 1:
-                System.out.println("Odwołanie do metody w której po podaniu nr auta sprawdza, czy masz zainteresowanego klienta i dokonuje się sprzedaż");
-                break;
-            case 2:
+            }
+            case 1 ->
+                    System.out.println("Odwołanie do metody w której po podaniu nr auta sprawdza, czy masz zainteresowanego klienta i dokonuje się sprzedaż");
+            case 2 -> {
                 System.out.println("Odwołanie do metody 'napraw samochód' z opcją wyboru mechanika");
                 Mechanic.printMechanicList();
-                break;
-            case 3:
-                System.out.println("Odwołanie do netody wyświetlającej historę napraw każdego pojazdu");
-                break;
-            case 4:
-                System.out.println("Odwołanie do netody wyświetlającej historę kosztów napraw i mycia każdego pojazdu");
-                break;
-            default:
+            }
+            case 3 -> System.out.println("Odwołanie do netody wyświetlającej historę napraw każdego pojazdu");
+            case 4 ->
+                    System.out.println("Odwołanie do netody wyświetlającej historę kosztów napraw i mycia każdego pojazdu");
+            default -> {
                 System.out.println("Błąd: podaj liczbę z zakresu: 0 - 4");
                 carsToSoldMenu();
-                break;
+            }
         }
     }
 
-    public static void carsToBuyMenu() {
+    public void carsToBuyMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=====================================================================");
         System.out.println("Wybierz opcję: ");
@@ -93,21 +93,20 @@ public class Menu {
         System.out.println("=====================================================================");
         Integer option = scanner.nextInt();
         switch (option) {
-            case 0:
+            case 0 -> {
                 System.out.println("Powrót do menu głównego");
                 initialMenu();
-                break;
-            case 1:
-                System.out.println("Odwołanie do metody w której po podaniu nr auta sprawdza, czy masz wystarczające środki i dokonuje się zakup");
-                break;
-            default:
+            }
+            case 1 ->
+                    System.out.println("Odwołanie do metody w której po podaniu nr auta sprawdza, czy masz wystarczające środki i dokonuje się zakup");
+            default -> {
                 System.out.println("Błąd: podaj liczbę z zakresu: 0 - 1");
                 carsToBuyMenu();
-                break;
+            }
         }
     }
 
-    public static void initialMenu() {
+    public void initialMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=====================================================================");
         System.out.println("Wybierz opcję: ");
@@ -121,41 +120,39 @@ public class Menu {
         System.out.println("=====================================================================");
         Integer option = scanner.nextInt();
         switch (option) {
-            case 0:
-                System.out.println("Program został wyłączony w trakcie gry");
-                break;
-            case 1:
-                System.out.println("Odwołanie do listy z bazą samochodów do kupienia + opcja: kup samochód");
+            case 0 -> System.out.println("Program został wyłączony w trakcie gry");
+            case 1 -> {
+                System.out.println("OTO LISTA SAMOCHODÓW DO KUPIENIA: ");
+                generate.showCarBase();
                 carsToBuyMenu();
-                break;
-            case 2:
+            }
+            case 2 -> {
                 System.out.println("Odwołanie do metody 'przejrzyj bazę posiadanych samochodów' w klasie player");
-                Player.showPlayersGarage();
+                Player.showPlayerGarage();
                 Mechanic.addMechanic();
                 carsToSoldMenu();
-                break;
-            case 3:
-                System.out.println("Odwołanie do listy z bazą potencjalnych klientów i ich preferencjami");
-                System.out.println("np.: klient 1, ma 80 000zł, szuka premium, audi, nieuszkodzony");
-                System.out.println("np.: klient 2 , ma 50 000zł, szuka standard, vw, nieuszkodzony");
-                break;
-            case 4:
+            }
+            case 3 -> {
+                System.out.println("OTO BAZA POTENCJALNYCH KLIENTÓW: ");
+                generate.showCustomerBase();
+            }
+            case 4 -> {
                 System.out.println("Odwołanie do metody 'kup reklamę' z opcjami");
                 buyAdMenu();
-                break;
-            case 5:
+            }
+            case 5 -> {
                 System.out.println("Odwołanie do metody 'sprawdzStanKonta' w klasie player");
-                Player.showPlayersCash();
+                Player.showPlayerCash();
                 initialMenu();
-                break;
-            case 6:
+            }
+            case 6 -> {
                 Player.showTransactionHistory();
                 initialMenu();
-                break;
-            default:
+            }
+            default -> {
                 System.out.println("Błąd: podaj liczbę z zakresu: 0 - 6");
                 initialMenu();
-                break;
+            }
         }
     }
 
